@@ -1,0 +1,90 @@
+import pygame
+import random
+import sys
+
+# Initialize Pygame
+pygame.init()
+
+# Set screen dimensions
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption("Car Racing Game")
+
+# Colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+
+# Load images
+car_img = pygame.image.load('car.png')
+enemy_img = pygame.image.load('enemy_car.png')
+
+# Car dimensions
+car_width = 73
+car_height = 144
+
+# Car initial position
+car_x = (SCREEN_WIDTH - car_width) // 2
+car_y = SCREEN_HEIGHT - car_height - 20
+
+# Enemy car initial position
+enemy_width = 73
+enemy_height = 144
+enemy_x = random.randint(0, SCREEN_WIDTH - enemy_width)
+enemy_y = -enemy_height
+
+# Car speed
+car_speed = 5
+
+# Enemy car speed
+enemy_speed = 7
+
+clock = pygame.time.Clock()
+
+def draw_car(x, y):
+    screen.blit(car_img, (x, y))
+
+def draw_enemy_car(x, y):
+    screen.blit(enemy_img, (x, y))
+
+def game_over():
+    font = pygame.font.SysFont(None, 50)
+    text = font.render("Game Over!", True, RED)
+    screen.blit(text, (250, 250))
+    pygame.display.update()
+    pygame.time.delay(2000)
+    pygame.quit()
+    sys.exit()
+
+# Game Loop
+running = True
+while running:
+    screen.fill(WHITE)
+    
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT] and car_x > 0:
+        car_x -= car_speed
+    if keys[pygame.K_RIGHT] and car_x < SCREEN_WIDTH - car_width:
+        car_x += car_speed
+
+    enemy_y += enemy_speed
+    if enemy_y > SCREEN_HEIGHT:
+        enemy_x = random.randint(0, SCREEN_WIDTH - enemy_width)
+        enemy_y = -enemy_height
+
+    if car_x < enemy_x + enemy_width and car_x + car_width > enemy_x and car_y < enemy_y + enemy_height and car_y + car_height > enemy_y:
+        game_over()
+
+    draw_car(car_x, car_y)
+    draw_enemy_car(enemy_x, enemy_y)
+    
+    pygame.display.update()
+    clock.tick(60)
+
+pygame.quit()
+sys.exit()
