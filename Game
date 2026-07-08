@@ -17,8 +17,15 @@ BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 
 # Load images
-car_img = pygame.image.load('car.png')
-enemy_img = pygame.image.load('enemy_car.png')
+try:
+    car_img = pygame.image.load('car.png')
+except (pygame.error, FileNotFoundError):
+    car_img = None
+
+try:
+    enemy_img = pygame.image.load('enemy_car.png')
+except (pygame.error, FileNotFoundError):
+    enemy_img = None
 
 # Car dimensions
 car_width = 73
@@ -40,18 +47,36 @@ car_speed = 5
 # Enemy car speed
 enemy_speed = 7
 
+# Score
+score = 0
+
+# Fonts
+score_font = pygame.font.SysFont(None, 35)
+game_over_font = pygame.font.SysFont(None, 50)
+
 clock = pygame.time.Clock()
 
 def draw_car(x, y):
-    screen.blit(car_img, (x, y))
+    if car_img:
+        screen.blit(car_img, (x, y))
+    else:
+        pygame.draw.rect(screen, BLACK, [x, y, car_width, car_height])
 
 def draw_enemy_car(x, y):
-    screen.blit(enemy_img, (x, y))
+    if enemy_img:
+        screen.blit(enemy_img, (x, y))
+    else:
+        pygame.draw.rect(screen, RED, [x, y, enemy_width, enemy_height])
+
+def display_score(score):
+    text = score_font.render("Score: " + str(score), True, BLACK)
+    screen.blit(text, (10, 10))
 
 def game_over():
-    font = pygame.font.SysFont(None, 50)
-    text = font.render("Game Over!", True, RED)
-    screen.blit(text, (250, 250))
+    text = game_over_font.render("Game Over!", True, RED)
+    score_text = game_over_font.render("Final Score: " + str(score), True, BLACK)
+    screen.blit(text, (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 50))
+    screen.blit(score_text, (SCREEN_WIDTH // 2 - 120, SCREEN_HEIGHT // 2 + 10))
     pygame.display.update()
     pygame.time.delay(2000)
     pygame.quit()
@@ -76,12 +101,14 @@ while running:
     if enemy_y > SCREEN_HEIGHT:
         enemy_x = random.randint(0, SCREEN_WIDTH - enemy_width)
         enemy_y = -enemy_height
+        score += 1
 
     if car_x < enemy_x + enemy_width and car_x + car_width > enemy_x and car_y < enemy_y + enemy_height and car_y + car_height > enemy_y:
         game_over()
 
     draw_car(car_x, car_y)
     draw_enemy_car(enemy_x, enemy_y)
+    display_score(score)
     
     pygame.display.update()
     clock.tick(60)
