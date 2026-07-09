@@ -2,89 +2,56 @@ import pygame
 import random
 import sys
 
-# Initialize Pygame
-pygame.init()
+def load_image(name, color):
+    try:
+        return pygame.transform.scale(pygame.image.load(name), (73, 144))
+    except (pygame.error, FileNotFoundError):
+        surf = pygame.Surface((73, 144))
+        surf.fill(color)
+        return surf
 
-# Set screen dimensions
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("Car Racing Game")
+def main():
+    pygame.init()
+    screen = pygame.display.set_mode((800, 600))
+    pygame.display.set_caption("Car Racing Game")
 
-# Colors
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-RED = (255, 0, 0)
+    font_score = pygame.font.SysFont(None, 35)
+    font_gameover = pygame.font.SysFont(None, 50)
 
-# Load images
-car_img = pygame.image.load('car.png')
-enemy_img = pygame.image.load('enemy_car.png')
+    car_img = load_image('car.png', (0, 255, 0))
+    enemy_img = load_image('enemy_car.png', (255, 0, 0))
 
-# Car dimensions
-car_width = 73
-car_height = 144
+    car_x, car_y = 363, 436
+    enemy_x, enemy_y = random.randint(0, 727), -144
+    score = 0
+    clock = pygame.time.Clock()
 
-# Car initial position
-car_x = (SCREEN_WIDTH - car_width) // 2
-car_y = SCREEN_HEIGHT - car_height - 20
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit(); sys.exit()
 
-# Enemy car initial position
-enemy_width = 73
-enemy_height = 144
-enemy_x = random.randint(0, SCREEN_WIDTH - enemy_width)
-enemy_y = -enemy_height
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT] and car_x > 0: car_x -= 5
+        if keys[pygame.K_RIGHT] and car_x < 727: car_x += 5
 
-# Car speed
-car_speed = 5
+        enemy_y += 7
+        if enemy_y > 600:
+            enemy_x, enemy_y = random.randint(0, 727), -144
+            score += 1
 
-# Enemy car speed
-enemy_speed = 7
+        if pygame.Rect(car_x, car_y, 73, 144).colliderect(pygame.Rect(enemy_x, enemy_y, 73, 144)):
+            msg = font_gameover.render(f"Game Over! Score: {score}", True, (255, 0, 0))
+            screen.blit(msg, (250, 250))
+            pygame.display.update(); pygame.time.delay(2000); break
 
-clock = pygame.time.Clock()
-
-def draw_car(x, y):
-    screen.blit(car_img, (x, y))
-
-def draw_enemy_car(x, y):
-    screen.blit(enemy_img, (x, y))
-
-def game_over():
-    font = pygame.font.SysFont(None, 50)
-    text = font.render("Game Over!", True, RED)
-    screen.blit(text, (250, 250))
-    pygame.display.update()
-    pygame.time.delay(2000)
+        screen.fill((255, 255, 255))
+        screen.blit(car_img, (car_x, car_y))
+        screen.blit(enemy_img, (enemy_x, enemy_y))
+        screen.blit(font_score.render(f"Score: {score}", True, (0, 0, 0)), (10, 10))
+        pygame.display.update()
+        clock.tick(60)
     pygame.quit()
-    sys.exit()
 
-# Game Loop
-running = True
-while running:
-    screen.fill(WHITE)
-    
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_LEFT] and car_x > 0:
-        car_x -= car_speed
-    if keys[pygame.K_RIGHT] and car_x < SCREEN_WIDTH - car_width:
-        car_x += car_speed
-
-    enemy_y += enemy_speed
-    if enemy_y > SCREEN_HEIGHT:
-        enemy_x = random.randint(0, SCREEN_WIDTH - enemy_width)
-        enemy_y = -enemy_height
-
-    if car_x < enemy_x + enemy_width and car_x + car_width > enemy_x and car_y < enemy_y + enemy_height and car_y + car_height > enemy_y:
-        game_over()
-
-    draw_car(car_x, car_y)
-    draw_enemy_car(enemy_x, enemy_y)
-    
-    pygame.display.update()
-    clock.tick(60)
-
-pygame.quit()
-sys.exit()
+if __name__ == "__main__":
+    main()
