@@ -1,0 +1,3 @@
+## 2025-05-14 - Robust Asset Loading and Feedback
+**Learning:** In headless environments (like CI or remote dev), Pygame apps can crash if assets are missing or if video drivers aren't handled correctly. Providing a fallback mechanism for assets (e.g., colored rectangles) ensures the game remains playable and debuggable even when media files are absent. Additionally, a simple score counter provides immediate feedback and a sense of progression, which is a core micro-UX element in games.
+**Action:** Always implement try-except blocks for asset loading in Pygame and provide visual fallbacks. Include basic feedback loops like scoring to improve engagement.
