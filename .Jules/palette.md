@@ -1,0 +1,3 @@
+## 2025-07-14 - Asset Resilience and Immediate Feedback
+**Learning:** In Pygame applications, missing assets (images) are a common point of failure. Implementing a robust fallback pattern with solid-colored `pygame.Surface` objects ensures the application remains usable and accessible even when assets are missing. Additionally, providing immediate feedback via a scoring system and a descriptive game over screen significantly enhances the player's sense of progression and closure.
+**Action:** Always wrap image loading in try-except blocks with Surface fallbacks, and ensure games have visible feedback mechanisms for player actions.
