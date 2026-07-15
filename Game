@@ -40,6 +40,14 @@ car_speed = 5
 # Enemy car speed
 enemy_speed = 7
 
+# Score
+score = 0
+
+# Fonts
+score_font = pygame.font.SysFont(None, 25)
+game_over_font_large = pygame.font.SysFont(None, 75)
+game_over_font_small = pygame.font.SysFont(None, 50)
+
 clock = pygame.time.Clock()
 
 def draw_car(x, y):
@@ -48,12 +56,23 @@ def draw_car(x, y):
 def draw_enemy_car(x, y):
     screen.blit(enemy_img, (x, y))
 
+def display_score(current_score):
+    text = score_font.render("Score: " + str(current_score), True, BLACK)
+    screen.blit(text, (10, 10))
+
 def game_over():
-    font = pygame.font.SysFont(None, 50)
-    text = font.render("Game Over!", True, RED)
-    screen.blit(text, (250, 250))
+    over_text = game_over_font_large.render("Game Over!", True, RED)
+    over_rect = over_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 50))
+
+    score_text = game_over_font_small.render("Final Score: " + str(score), True, BLACK)
+    score_rect = score_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50))
+
+    screen.fill(WHITE)
+    screen.blit(over_text, over_rect)
+    screen.blit(score_text, score_rect)
+
     pygame.display.update()
-    pygame.time.delay(2000)
+    pygame.time.delay(3000)
     pygame.quit()
     sys.exit()
 
@@ -76,12 +95,14 @@ while running:
     if enemy_y > SCREEN_HEIGHT:
         enemy_x = random.randint(0, SCREEN_WIDTH - enemy_width)
         enemy_y = -enemy_height
+        score += 1
 
     if car_x < enemy_x + enemy_width and car_x + car_width > enemy_x and car_y < enemy_y + enemy_height and car_y + car_height > enemy_y:
         game_over()
 
     draw_car(car_x, car_y)
     draw_enemy_car(enemy_x, enemy_y)
+    display_score(score)
     
     pygame.display.update()
     clock.tick(60)
