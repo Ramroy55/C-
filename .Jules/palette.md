@@ -1,0 +1,3 @@
+## 2025-02-18 - Graceful Asset Failbacks in Pygame Game Engine
+**Learning:** Pygame crashes or fails to display any visual elements if required external assets (such as sprite PNGs) are missing or fail to load. By employing exception handling on image load combined with clean fallback shape rendering matching specified dimensions, we keep the game fully functional and readable under arbitrary asset availability.
+**Action:** Always wrap `pygame.image.load` in `try-except` blocks for `pygame.error` and `FileNotFoundError`. Use clean fallback fills (using existing constant colors) with correct width/height dimensions.
