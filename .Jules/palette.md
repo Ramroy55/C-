@@ -1,0 +1,3 @@
+## 2025-07-20 - Pygame Graceful Asset Loading and Clean Typography Alignment
+**Learning:** In Pygame, hardcoded asset paths can easily break across environments, causing crashes. Providing robust fallback shapes (using the correct game-dimension constants instead of hardcoded numbers) ensures the game remains fully playable. Furthermore, centering multiline typography via `get_rect(center=(...))` yields a polished, visually balanced micro-UX compared to hardcoded coordinates.
+**Action:** Always wrap asset loading in try-except blocks, use semantic constants for fallback shapes, and use rect centering on coordinate midpoints to ensure correct alignment across various display resolutions.
