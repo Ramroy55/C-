@@ -1,0 +1,3 @@
+## 2025-02-15 - Arcade UI Feedback Loops
+**Learning:** In headless or desktop arcade-style Pygame interfaces, missing asset fallbacks (like rendering solid-colored blocks instead of failing silently) and immediate on-screen score feedback are critical for maintaining a playable game state and ensuring visual accessibility. Precise text centering using `.get_rect(center=(x, y))` avoids alignment discrepancies across varying screen dimensions.
+**Action:** Always implement robust catch blocks for local asset loading and provide primitive vector shapes as a standard fallback. Always center text dynamically relative to screen coordinates rather than using fixed offset coordinates.
