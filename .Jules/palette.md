@@ -1,0 +1,3 @@
+## 2025-07-23 - Robust Asset Fallbacks and Standardized UI Positioning in Pygame
+**Learning:** Pygame applications lack traditional HTML/CSS layout systems and screen readers. Therefore, ensuring standard UI elements (like Game Over screens and live scores) are perfectly centered via `get_rect(center=(x, y))` and fallback graphics are safely drawn in correct colors and dimensions when image assets are missing or fail to load is crucial for solid, reliable game UX.
+**Action:** Always catch both `pygame.error` and `FileNotFoundError` during image loading to prevent immediate app crashes, and use pre-calculated fallback shapes and centralized text positioning for robust offline/headless rendering.
