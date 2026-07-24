@@ -1,0 +1,3 @@
+## 2025-02-15 - Enhancing Game State Feedback and Accessibility in Pygame UIs
+**Learning:** Pygame UIs lack native ARIA or semantic screen reader features, meaning visual clarity, text positioning, and immediate feedback (like scoring and clean Game Over states) serve as the primary cognitive and accessibility layers. Failing to clear the screen on Game Over or displaying text at hardcoded offsets causes visual overlapping and severe cognitive friction.
+**Action:** When working in Pygame, always initialize fonts outside the game loop, render scores as a real-time feedback loop, center game-state text dynamically using `text.get_rect(center=(x, y))`, and explicitly clear the screen before final state transitions to ensure readable, accessible typography.
