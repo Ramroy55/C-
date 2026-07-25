@@ -1,0 +1,3 @@
+## 2024-11-23 - Centered Game Over Screens and Robust Asset Fallbacks
+**Learning:** Pygame applications often crash or render broken UI if image assets (like `.png` files) are missing, or text elements are hardcoded without proper centering. Catching FileNotFoundError/pygame.error and rendering standard colored shape fallbacks (e.g. BLUE/RED rectangles) prevents broken states, while using `get_rect(center=(...))` guarantees pixel-perfect, centered overlays that work perfectly across all resolution types.
+**Action:** Always wrap image loading in try-except blocks with robust colored fallbacks using predefined asset dimension variables, and use `get_rect(center=(...))` to dynamically center important overlay text.
