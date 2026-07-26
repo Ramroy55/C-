@@ -1,0 +1,3 @@
+## 2025-07-26 - Pygame Asset Fallbacks and Headless Verification
+**Learning:** Pygame games running in restricted or headless environments must not crash when asset files are missing or display/audio drivers are not initialized. Standardizing on drawing vector shape fallbacks (like colored rectangles matched to dimensions) ensures high availability and robustness without sacrificing basic UX. Furthermore, UI and font rendering should handle centering accurately using text bounding boxes.
+**Action:** Implement try-except handlers for image/sound loading that fall back to standard color geometry using correct variables, pre-initialize font objects to avoid performance lag, and use text.get_rect(center=(x, y)) for perfect centering in text/UI rendering.
