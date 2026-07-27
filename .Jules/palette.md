@@ -1,0 +1,3 @@
+## 2025-07-27 - Headless Game Asset Fallback & Interactive Progress Feedback
+**Learning:** In headless game environments where file system asset resources may be missing, using a robust, error-tolerant asset loader with dimension-relative fallback rectangles keeps the game fully functional and inspectable. Adding centered dynamic HUD score overlays and styled final result metrics dramatically enhances feedback loops and player engagement.
+**Action:** Always load pygame and system assets within try-except blocks catching both pygame.error and FileNotFoundError. Fall back to colored vector geometries utilizing pre-defined dimensions rather than magic numbers. Leverage text.get_rect(center=(x, y)) to cleanly center UI texts regardless of screen bounds.
