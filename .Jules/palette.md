@@ -1,0 +1,3 @@
+## 2025-07-30 - Headless Pygame & Image Asset Fallbacks
+**Learning:** Pygame applications executing in a headless environment require setting SDL driver environment variables to 'dummy'. Additionally, image loading can fail due to missing assets, so implementing robust catch blocks for both FileNotFoundError and pygame.error allows falling back to drawing colored rectangles, ensuring an uninterrupted and resilient user experience.
+**Action:** When working on Pygame applications, always initialize drivers correctly for test environments and implement fallback rendering paths (e.g., colored rectangles) using standard constants so missing assets do not crash the game.
