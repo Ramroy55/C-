@@ -1,0 +1,3 @@
+## 2025-02-15 - Headless Pygame Asset Fallback and Text Alignment
+**Learning:** In Pygame-based UI designs, critical rendering crashes occur when external image assets (like sprites) are missing. Implementing a silent fallback to styled colored rectangles ensures high availability. Furthermore, text element rendering should never rely on hardcoded coordinates; using `get_rect(center=(x, y))` dynamically adapts to varying string lengths (such as dynamic scores) and screen sizes.
+**Action:** Always wrap image asset loading in a try-except block with standard fallback colors, and leverage `get_rect(center=...)` for centering game over and score displays.
