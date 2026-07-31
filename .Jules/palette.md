@@ -1,0 +1,5 @@
+# Palette's UX & Accessibility Journal
+
+## 2026-07-31 - Robust Headless Visual Verification & Fallback Rendering in Pygame UIs
+**Learning:** In Pygame game interfaces deployed in headless/CI pipelines, asset loading issues can cause critical application failures. We can prevent these crashes by wrapping image resource loading in try-except blocks catching both `pygame.error` and `FileNotFoundError`, and falling back to rendering high-contrast, semantic colored vector shapes (e.g. BLUE for the player and RED for enemies) that preserve the game's exact geometry using defined variables. Additionally, real-time progression tracking (such as in-game scores) coupled with a dynamically centered and dim-overlayed Game Over screen dramatically increases immediate feedback, clarity, and visual polish.
+**Action:** Always implement robust catch blocks for Pygame resources, fall back to vector shapes styled with standard colors matching core dimensions, and center UI/text elements dynamically using `text.get_rect(center=(x, y))` instead of hardcoded coordinates.

@@ -15,10 +15,24 @@ pygame.display.set_caption("Car Racing Game")
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
+BLUE = (0, 0, 255)
+GRAY = (128, 128, 128)
 
-# Load images
-car_img = pygame.image.load('car.png')
-enemy_img = pygame.image.load('enemy_car.png')
+# Load images with robust fallback
+car_loaded = True
+enemy_loaded = True
+
+try:
+    car_img = pygame.image.load('car.png')
+except (pygame.error, FileNotFoundError):
+    car_img = None
+    car_loaded = False
+
+try:
+    enemy_img = pygame.image.load('enemy_car.png')
+except (pygame.error, FileNotFoundError):
+    enemy_img = None
+    enemy_loaded = False
 
 # Car dimensions
 car_width = 73
@@ -42,23 +56,47 @@ enemy_speed = 7
 
 clock = pygame.time.Clock()
 
+# Initialize Pygame fonts once outside the main game loop for performance optimization
+font_small = pygame.font.SysFont(None, 36)
+font_large = pygame.font.SysFont(None, 60)
+
 def draw_car(x, y):
-    screen.blit(car_img, (x, y))
+    if car_loaded:
+        screen.blit(car_img, (x, y))
+    else:
+        pygame.draw.rect(screen, BLUE, (x, y, car_width, car_height))
 
 def draw_enemy_car(x, y):
-    screen.blit(enemy_img, (x, y))
+    if enemy_loaded:
+        screen.blit(enemy_img, (x, y))
+    else:
+        pygame.draw.rect(screen, RED, (x, y, enemy_width, enemy_height))
 
-def game_over():
-    font = pygame.font.SysFont(None, 50)
-    text = font.render("Game Over!", True, RED)
-    screen.blit(text, (250, 250))
+def game_over(final_score):
+    # Dim the screen with a beautiful semi-transparent overlay for high-contrast accessibility
+    overlay = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.SRCALPHA)
+    overlay.fill((0, 0, 0, 180))  # Translucent black backdrop
+    screen.blit(overlay, (0, 0))
+
+    # Render Game Over text centered dynamically
+    title_text = font_large.render("Game Over!", True, RED)
+    score_text = font_small.render(f"Final Score: {final_score}", True, WHITE)
+
+    title_rect = title_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 30))
+    score_rect = score_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 30))
+
+    screen.blit(title_text, title_rect)
+    screen.blit(score_text, score_rect)
+
     pygame.display.update()
     pygame.time.delay(2000)
     pygame.quit()
     sys.exit()
 
 # Game Loop
+score = 0
 running = True
+collision_occurred = False
 while running:
     screen.fill(WHITE)
     
@@ -76,15 +114,24 @@ while running:
     if enemy_y > SCREEN_HEIGHT:
         enemy_x = random.randint(0, SCREEN_WIDTH - enemy_width)
         enemy_y = -enemy_height
+        score += 1
 
     if car_x < enemy_x + enemy_width and car_x + car_width > enemy_x and car_y < enemy_y + enemy_height and car_y + car_height > enemy_y:
-        game_over()
+        collision_occurred = True
+        break
 
     draw_car(car_x, car_y)
     draw_enemy_car(enemy_x, enemy_y)
     
+    # Render current score
+    score_text = font_small.render(f"Score: {score}", True, BLACK)
+    screen.blit(score_text, (20, 20))
+
     pygame.display.update()
     clock.tick(60)
+
+if collision_occurred:
+    game_over(score)
 
 pygame.quit()
 sys.exit()
