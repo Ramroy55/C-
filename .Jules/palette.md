@@ -1,0 +1,3 @@
+## 2025-02-01 - Immediate Game Score Feedback & Robust Asset Fallbacks
+**Learning:** Adding real-time score counters to games provides immediate, positive feedback that dramatically increases player engagement. In addition, games must never hard-fail on missing assets; using a fallback visual structure (like colored placeholder rectangles based on defined game dimensions) ensures continuity and avoids high bounce rates.
+**Action:** Ensure all interactive systems provide immediate score/progress feedback and use robust try-except visual fallbacks using standard defined constants rather than hardcoded magic numbers.
