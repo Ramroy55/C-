@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+verify_ui.py
+verify.png
+verify_game_over.png

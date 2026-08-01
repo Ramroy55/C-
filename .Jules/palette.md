@@ -1,0 +1,3 @@
+## 2025-08-01 - Pygame Asset Fallback and Text Centering
+**Learning:** In headless or resource-constrained environments, missing game assets (like image files) can completely crash Pygame applications if not handled gracefully. Furthermore, hardcoded coordinates for UI text rendering lead to off-center, inaccessible layouts on different display resolutions.
+**Action:** Always wrap asset loading in try-except blocks catching both `pygame.error` and `FileNotFoundError`, and provide colored vector fallbacks (like BLUE for players and RED for enemies) mapped to the exact expected dimensions. Center all crucial text elements (such as HUD or Game Over text) using `text.get_rect(center=(...))` to keep the layout clean and accessible on any window scale.
