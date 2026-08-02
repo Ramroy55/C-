@@ -1,0 +1,13 @@
+# Python cache and bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Temporary verification scripts
+verify_ui.py
+test_game.py
+
+# Screenshots and media artifacts
+*.png
+*.webm

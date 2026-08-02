@@ -1,0 +1,3 @@
+## 2025-02-02 - Pygame Headless Visual Feedback and Scoring Loops
+**Learning:** Integrating a real-time scoring system alongside image-load fallbacks (such as colored rectangles) directly enhances the game's feedback loop, making gameplay intuitive even without native graphical assets. Additionally, centering game over overlays perfectly via `get_rect(center=...)` on a dark backdrop significantly improves readability and text contrast in retro-style visual interfaces.
+**Action:** When working on Pygame or similar visual canvas applications, always implement robust fallback states for assets, initialize fonts once outside the main loop to maximize performance, and use centered rect math for all key UI text overlays.
