@@ -1,0 +1,3 @@
+## 2025-08-04 - Headless Pygame Asset Fallbacks and UI Verification
+**Learning:** In headless environments where Pygame is executed via dummy display drivers, missing asset files (e.g., sprites/images) can easily crash the execution if not handled robustly with Try-Except blocks. Providing fallback colored rectangles maintains playability and prevents crash loops, while saving a display Surface screenshot allows developers to visually verify the UI/UX changes without a standard GUI.
+**Action:** Catch both `pygame.error` and `FileNotFoundError` during image loads, drawing colored rectangles of correct proportions, and use explicit `pygame.image.save` to local files to inspect output in headless workflows.
