@@ -1,0 +1,3 @@
+## 2024-08-05 - Pygame Headless Visual Verification & Fallback Design
+**Learning:** Pygame applications running in restricted headless CI/CD pipelines cannot rely on standard displays or image resources always being present; implementing robust, dimension-exact colored rectangle fallbacks (with correct aspect ratios) and saving internal display snapshots under dummy drivers allows seamless UI verification and graceful runtime resilience.
+**Action:** Always wrap image loading in a try-except block targeting both `pygame.error` and `FileNotFoundError`, draw fallback geometric shapes matching design variables, and capture screenshots to verify the visuals headlessly via dummy SDL environment variables.
