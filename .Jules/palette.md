@@ -1,0 +1,5 @@
+# Palette's UX and Accessibility Journal
+
+## 2025-08-05 - Headless UI Visual Verification and Graceful Pygame Asset Fallbacks
+**Learning:** In headless environments, visual verification of Pygame applications requires running the script with dummy SDL drivers (`SDL_VIDEODRIVER=dummy` and `SDL_AUDIODRIVER=dummy`) and programmatically capturing and saving screenshots via `pygame.image.save` to check text positioning and visual design. To handle potential file loading errors gracefully in such sandboxed environments, wrapping asset loading in `try-except` blocks to catch both `pygame.error` and `FileNotFoundError` allows rendering color-coded rectangles using variables for dimensions instead of magic numbers, ensuring the game remains playable and clean even if local image assets are absent.
+**Action:** Next time we work with Pygame or standard Canvas environments, prioritize initializing fonts once outside of main loops for performance, use `text.get_rect(center=(x, y))` for perfect spatial alignment, and implement colored fallbacks using predefined entity dimensions.
