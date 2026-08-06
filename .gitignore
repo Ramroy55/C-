@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+*.png
+*.jpg
+*.jpeg
+*.webp
+verify_game.py
