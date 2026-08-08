@@ -1,0 +1,3 @@
+## 2025-08-08 - Fallback Assets and Micro-UX in Headless Pygame Environment
+**Learning:** In headless game testing or environments without pre-baked assets, the lack of images can cause complete application crashes. Providing robust fallback shapes (e.g., colored rectangles matching actual dimensions) rather than hardcoded dimensions prevents rendering issues and ensures a continuous gameplay experience.
+**Action:** Always wrap image loading in try-except statements catching both FileNotFoundError and pygame.error, and render properly scaled vector fallback shapes using defined game constants when images are missing.
