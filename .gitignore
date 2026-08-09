@@ -1,0 +1,10 @@
+# Python cache and bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Temporary verification scripts and screenshots
+verify_*.py
+test_*.png
+screenshot_*.png
+*.png
