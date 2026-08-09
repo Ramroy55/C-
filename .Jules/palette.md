@@ -1,0 +1,3 @@
+## 2025-08-09 - Game Asset Fallbacks and Centered Overlays
+**Learning:** In headless game environments or environments where external media assets are missing, using simple colored bounding boxes based on design-variable dimensions avoids crashes. Furthermore, game HUD elements like scores and centered final notifications require pre-allocated fonts and precise screen rect calculations using `.get_rect(center=(x, y))` to remain clear and visually appealing.
+**Action:** Always wrap image loaders in try-except blocks handling both `pygame.error` and `FileNotFoundError`, draw high-contrast rectangle fallbacks matching the exact asset variables, and center HUD/overlays properly using coordinate calculations and font instances initialized once.
