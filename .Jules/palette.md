@@ -1,0 +1,3 @@
+## 2025-08-11 - Graceful Asset Fallback and UX Polish in Pygame
+**Learning:** When developing 2D games with external assets in headless/distribution environments, robust asset load error handling (catching FileNotFoundError and pygame.error) paired with high-contrast fallback vector graphics ensures a seamless and functional gameplay experience even if files are missing.
+**Action:** Always wrap `pygame.image.load` in try-except blocks, falling back to primitive shapes (e.g., colored rectangles) that use defined dimensions, and display centered gameplay/game over text to maintain a professional look.
