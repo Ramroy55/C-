@@ -1,0 +1,3 @@
+## 2026-08-11 - Robust Asset Fallbacks and Immediate Scoring Feedback
+**Learning:** Pygame applications running in varying headless/CI or local environments can suffer crashes if external assets (images, audio) are missing. Graceful error handling using standard fallbacks prevents crashes and improves UX. Additionally, immediate scoring feedback and centered text rendering on game over screens greatly improve accessibility and game-loop engagement.
+**Action:** Always wrap image and asset loading in try-except blocks, use semantic default shapes with system colors, initialize fonts once globally, and use text rect centering to provide clean user feedback.
