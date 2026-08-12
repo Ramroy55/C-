@@ -1,0 +1,3 @@
+## 2025-08-12 - Headless Pygame and Fail-Safe Visual Fallbacks
+**Learning:** In headless environments (such as remote containers or CI/CD pipelines), Pygame games fail if they rely solely on graphical assets (like .png sprites) that might be missing or fail to load. Adding a robust visual fallback using basic geometric shapes ensures the game remains playable even without asset files. Additionally, proper text centering using surface rectangles prevents layout jank on various display resolutions.
+**Action:** Always wrap asset loading in try-except blocks catching both Pygame and File system exceptions, fall back to drawing geometric shapes with standard dimensions (e.g. car dimensions), and center text elements using `text.get_rect(center=(x, y))`.
