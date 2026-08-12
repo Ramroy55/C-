@@ -1,0 +1,3 @@
+## 2025-08-12 - Pygame Headless Visual Fallback and Verification
+**Learning:** In headless sandbox environments, interactive graphical applications like Pygame cannot load visual assets natively or display game loops. Relying purely on local asset loading leads to immediate crashes. Building a robust image fallback pattern to standard shape-rendering, coupled with non-interactive verification hooks or auto-running dummy drivers, allows continuous integration to succeed without compromising core UX on visual platforms.
+**Action:** Always wrap `pygame.image.load` in generic Try-Except blocks (catching `pygame.error` and `FileNotFoundError`) and fallback to primitive rect drawings. Explicitly break main loops on game over to prevent display surface reuse issues.
