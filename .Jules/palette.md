@@ -1,0 +1,3 @@
+## 2025-02-18 - Graceful Asset Fallbacks & Centered HUD Feedback in Pygame
+**Learning:** Pygame applications often crash when default image assets are missing; using fallback colored surfaces prevents immediate application crash and allows headless verification. Centering dynamic text rects (`text.get_rect(center=...)`) ensures consistent, legible UI layout across screen resolutions and end-game states.
+**Action:** Always wrap image asset loading in `try...except (pygame.error, FileNotFoundError)` blocks with colored surface fallbacks, and use `get_rect(center=...)` for centered overlay text in Pygame UIs.
