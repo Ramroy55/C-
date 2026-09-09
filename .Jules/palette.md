@@ -1,0 +1,3 @@
+## 2025-05-10 - Pygame Asset Fallbacks & Dynamic Text Centering
+**Learning:** Pygame applications crash immediately when image assets are missing if unhandled; using `try...except (pygame.error, FileNotFoundError)` with `pygame.Surface` fallback rectangles ensures graceful execution and visual accessibility. Additionally, text elements like "Game Over" and score HUDs should use `text.get_rect(center=...)` instead of fixed offsets to remain centered across display modes.
+**Action:** Always wrap image asset loading in Pygame in try-except blocks with colored fallback surfaces matching sprite dimensions, and center screen overlay text dynamically using surface bounding rects.
