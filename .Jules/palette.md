@@ -1,0 +1,3 @@
+## 2026-11-04 - Feedback loops and fallback handling in 2D Pygame
+**Learning:** In fast-paced arcade games, missing asset crash handling and the absence of live feedback loops (such as a score counter or clear game-over summary) severely diminish player engagement and resilience. Providing fallback shapes allows graceful degradation, while dynamic centering of HUD and end-game stats gives immediate visual clarity.
+**Action:** When designing or refactoring 2D game UIs, provide robust default fallback surfaces for missing assets and pair centered game-over screens with final performance metrics.
