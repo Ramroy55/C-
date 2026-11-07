@@ -1,0 +1,3 @@
+## 2025-05-18 - HUD Feedback and High-Contrast Text Overlays in Pygame
+**Learning:** In fast-paced arcade games, players require immediate feedback to gauge progress and performance. Without a score HUD or result summary, gameplay feels unrewarding and sudden terminations feel jarring. Furthermore, when drawing text over light game backgrounds (such as WHITE), using high-contrast colors (BLACK) and explicitly centered coordinate rectangles (`get_rect(center=...)`) ensures text remains readable and balanced regardless of screen resolution or string length.
+**Action:** Always provide an ongoing HUD element and an end-of-game summary screen with centered, high-contrast typography, and implement graceful surface fallbacks so players never encounter abrupt asset crashes.
